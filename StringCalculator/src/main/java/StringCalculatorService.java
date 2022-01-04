@@ -1,4 +1,3 @@
-import java.util.InputMismatchException;
 import java.util.regex.Pattern;
 
 public class StringCalculatorService {
@@ -6,9 +5,12 @@ public class StringCalculatorService {
 	private static final int CUSTOM_SEPARATOR_INDEX = 2;
 	private static final int NUMBER_START_INDEX = 5;
 
-	// public int calculateString(String userString) {
-	//
-	// }
+	public int calculateString(String userString) throws RuntimeException {
+		String[] numbers = separateString(userString);
+		return 0;
+	}
+
+
 
 	public boolean isDefaultSeparator(String userString) {
 		String defaultRegex = "(\\d*[,:])*\\d*";
@@ -17,13 +19,19 @@ public class StringCalculatorService {
 
 	public boolean isCustomSeparator(String userString) {
 		String customRegex = "\\/\\/(.)\\\\n([\\d]+.)*[\\d]+";
-		if (!Pattern.matches(customRegex, userString)) {
-			return false;
-		}
-		return isValidString(userString);
+		return Pattern.matches(customRegex, userString);
 	}
 
-	private boolean isValidString(String userString) {
+	public String[] separateString(String userString) {
+		if (isCustomSeparator(userString)) {
+			return separateByCustom(userString);
+		} else if (isDefaultSeparator(userString)) {
+			return separateByDefault(userString);
+		}
+		throw new RuntimeException();
+	}
+
+	private String[] separateByCustom(String userString) {
 		String customSeparator = userString.split("")[CUSTOM_SEPARATOR_INDEX];
 		String[] numberString = userString.substring(NUMBER_START_INDEX)
 			.split(customSeparator);
@@ -31,9 +39,14 @@ public class StringCalculatorService {
 			try {
 				Integer.parseInt(s);
 			} catch (NumberFormatException e) {
-				return false;
+				throw new RuntimeException();
 			}
 		}
-		return true;
+		return numberString;
 	}
+
+	private String[] separateByDefault(String userString) {
+		return userString.split(",|:");
+	}
+
 }

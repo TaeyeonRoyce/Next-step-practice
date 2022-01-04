@@ -48,16 +48,25 @@ public class StringCalculatorTest {
 		assertThat(sd.isCustomSeparator(exceptionString)).isFalse();
 	}
 
-	// @Test
-	// void 기본_구분자_분리() {
-	// 	//given
-	// 	StringCalculatorService sd = new StringCalculatorService();
-	//
-	// 	//when
-	// 	String userString = "1,2,3";
-	//
-	// 	//then
-	// 	assertThat(sd.calculateString(userString)).isEqualTo(6);
-	// }
+	@Test
+	void 숫자_추출() {
+		//given
 
+		//when
+		String userString = "113,22:1173";
+
+		//then
+		assertThat(sd.separateString(userString)).contains("113","22","1173");
+	}
+
+	@Test
+	void 커스텀_문자열_숫자_추출() {
+		//given
+
+		//when
+		String userString = "//<\\n11<23<34";
+
+		//then
+		assertThat(sd.separateString(userString)).contains("11","23","34");
+	}
 }
