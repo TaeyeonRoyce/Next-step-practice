@@ -81,4 +81,17 @@ public class StringCalculatorTest {
 		assertThatThrownBy(() -> {sd.calculateString(userString);})
 			.isInstanceOf(RuntimeException.class);
 	}
+
+	@Test
+	void 계산() {
+		//given
+
+		//when
+		String defaultString = "130,23:90";
+		String customString = "//<\\n11<23<34";
+
+		//then
+		assertThat(sd.calculateString(defaultString)).isEqualTo(243);
+		assertThat(sd.calculateString(customString)).isEqualTo(68);
+	}
 }

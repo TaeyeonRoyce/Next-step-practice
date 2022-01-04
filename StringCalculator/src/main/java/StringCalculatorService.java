@@ -10,8 +10,6 @@ public class StringCalculatorService {
 		return addNumbers(numbers);
 	}
 
-
-
 	public boolean isDefaultSeparator(String userString) {
 		String defaultRegex = "(\\d*[,:])*\\d*";
 		return Pattern.matches(defaultRegex, userString);
