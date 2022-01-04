@@ -7,7 +7,7 @@ public class StringCalculatorService {
 
 	public int calculateString(String userString) throws RuntimeException {
 		String[] numbers = separateString(userString);
-		return 0;
+		return addNumbers(numbers);
 	}
 
 
@@ -47,6 +47,21 @@ public class StringCalculatorService {
 
 	private String[] separateByDefault(String userString) {
 		return userString.split(",|:");
+	}
+
+	private int addNumbers(String[] strings) {
+		int sum = 0;
+		for (String string : strings) {
+			sum += checkEachNumber(string);
+		}
+		return sum;
+	}
+	private int checkEachNumber(String string) {
+		int num = Integer.parseInt(string);
+		if (num < 0) {
+			throw new RuntimeException();
+		}
+		return num;
 	}
 
 }

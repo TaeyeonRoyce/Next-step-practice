@@ -69,4 +69,16 @@ public class StringCalculatorTest {
 		//then
 		assertThat(sd.separateString(userString)).contains("11","23","34");
 	}
+
+	@Test
+	void 음수_예외_처리() {
+		//given
+
+		//when
+		String userString = "1:23:-90";
+
+		//then
+		assertThatThrownBy(() -> {sd.calculateString(userString);})
+			.isInstanceOf(RuntimeException.class);
+	}
 }
