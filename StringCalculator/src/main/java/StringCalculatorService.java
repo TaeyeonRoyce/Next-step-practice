@@ -6,6 +6,9 @@ public class StringCalculatorService {
 	private static final int NUMBER_START_INDEX = 5;
 
 	public int calculateString(String userString) throws RuntimeException {
+		if (isUserStringEmpty(userString)) {
+			return 0;
+		}
 		String[] numbers = separateString(userString);
 		return addNumbers(numbers);
 	}
@@ -60,6 +63,15 @@ public class StringCalculatorService {
 			throw new RuntimeException();
 		}
 		return num;
+	}
+
+	private boolean isUserStringEmpty(String userString) {
+		String regex = "\\/\\/.\\\\n";
+		if (userString.isEmpty()
+				|| Pattern.matches(regex, userString)) {
+			return true;
+		}
+		return false;
 	}
 
 }

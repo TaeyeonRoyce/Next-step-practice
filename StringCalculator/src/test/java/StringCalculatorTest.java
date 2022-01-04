@@ -94,4 +94,17 @@ public class StringCalculatorTest {
 		assertThat(sd.calculateString(defaultString)).isEqualTo(243);
 		assertThat(sd.calculateString(customString)).isEqualTo(68);
 	}
+
+	@Test
+	void 공백_입력_처리() {
+		//given
+
+		//when
+		String defaultString = "";
+		String customString = "//<\\n";
+
+		//then
+		assertThat(sd.calculateString(defaultString)).isEqualTo(0);
+		assertThat(sd.calculateString(customString)).isEqualTo(0);
+	}
 }
