@@ -66,3 +66,5 @@
   >
   >정규표현식을 좀 더 유연하게 사용할 수 있도록 변경하도록 할 것.
 
+리팩토링 결과: https://github.com/TaeyeonRoyce/Next-step-practice/commit/1fa8d2419a8f68a4206b18cdf2a3dd26e0e3de4f#diff-debc62322833e58f2e02675c35685ee4661f3063a355e0f4f13760ad453cfbf1
+
