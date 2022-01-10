@@ -16,12 +16,11 @@
 
 ### 요구사항 0 - 원격서버 설정 및 소스코드 분석
 
-- [원격서버 설정하기]
-- [소스코드 분석]
+- [원격서버 설정하기](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/01_원격%20서버.md)
 
 ### 요구사항 1 - http://localhost:8080/index.html로 접속시 응답
 
-* 
+* [클라이언트 요청 분석 및 응답하기](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/02_index.html응답.md)
 
 ### 요구사항 2 - get 방식으로 회원가입
 * 
