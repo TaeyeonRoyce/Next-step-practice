@@ -10,9 +10,13 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import model.User;
+import util.HttpRequestUtils;
 
 public class RequestHandler extends Thread {
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
@@ -39,12 +43,23 @@ public class RequestHandler extends Thread {
             // byte[] body = "Hello World".getBytes();
 
             String[] httpRequestLine = brLine.split(" "); //URI를 추출하기 위해 배열로 변환
-            String requestUri = httpRequestLine[1];
-            log.debug("request uri : {}", requestUri);
+            String requestURI = httpRequestLine[1];
+            log.debug("request URI : {}", requestURI);
 
-            Path uriPath = new File("./webapp" + requestUri).toPath();
+            if (requestURI.startsWith("/user/create")) {
+                String queryString = extractQueryFromURI(requestURI);
+                log.debug("queryString: {}", queryString);
 
-            byte[] body = Files.readAllBytes(uriPath);
+                Map<String, String> params =
+                    HttpRequestUtils.parseQueryString(queryString);
+                User user = new User(params.get("userId"), params.get("password"), params.get("name"),
+                    params.get("email"));
+                log.debug("User : {}", user);
+            }
+
+            Path URIPath = new File("./webapp" + requestURI).toPath();
+
+            byte[] body = Files.readAllBytes(URIPath);
 
             response200Header(dos, body.length);
             responseBody(dos, body);
@@ -71,5 +86,13 @@ public class RequestHandler extends Thread {
         } catch (IOException e) {
             log.error(e.getMessage());
         }
+    }
+    
+    private String extractQueryFromURI(String URI) {
+        String queryStartChar = "\\?";
+        String[] split = URI.split(queryStartChar);
+        // int queryStartIndex = URI.indexOf("?");
+        // return URI.substring(queryStartIndex + 1);
+        return split[1];
     }
 }

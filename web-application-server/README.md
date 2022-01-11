@@ -23,7 +23,7 @@
 * [클라이언트 요청 분석 및 응답하기](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/02_index.html응답.md)
 
 ### 요구사항 2 - get 방식으로 회원가입
-* 
+* [회원가입 요청에 대한 처리 및 분석 후 회원가입 정보를 user로 저장하기](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/03_회원가입(get).md)
 
 ### 요구사항 3 - post 방식으로 회원가입
 * 
