@@ -74,6 +74,42 @@ if (requestURI.startsWith("/user/create")) {
   User user = new User(params.get("userId"), params.get("password"), params.get("name"),
                        params.get("email"));
   log.debug("User : {}", user);
+  
+	requestURI = "/index.html"; //회원 가입이 완료되면 index.html로 이동(redirect)
 }
 ```
 
+```java
+// log
+23:57:34.487 [DEBUG] [Thread-2] [webserver.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 65051
+23:57:34.488 [DEBUG] [Thread-2] [webserver.RequestHandler] - request line : GET /user/create?userId=asdf&password=asdf&name=a&email=a%40gmail.com HTTP/1.1
+23:57:34.488 [DEBUG] [Thread-2] [webserver.RequestHandler] - request URI : /user/create?userId=asdf&password=asdf&name=a&email=a%40gmail.com
+23:57:34.488 [DEBUG] [Thread-2] [webserver.RequestHandler] - queryString: userId=asdf&password=asdf&name=a&email=a%40gmail.com
+23:57:34.488 [DEBUG] [Thread-2] [webserver.RequestHandler] - User : User [userId=asdf, password=asdf, name=a, email=a%40gmail.com]
+```
+
+이렇게 클라이언트로부터 입력받은 회원가입 데이터를 통해 User를 생성 및 저장하였다.
+
+
+
+### 테스트
+
+- `RequestHandler.extractQueryFromURI()`에 대한 테스트
+  URI로부터 쿼리문을 분리하는 기능 검증
+- `HttpRequestUtils.parseQueryString()`에 대한 테스트
+  쿼리문으로부터 파라미터들을 분리 및 Map에 저장하는 기능 검증
+- `RequestHandler.run()`에 대한 테스트
+  URI에 따라 알맞은 뷰를 반환하는지에 대한 검증
+
+
+
+### GET?
+
+하지만, 잘 알고 있는 것처럼 회원가입 예제는 POST방식의 요청의 대표적인 예제로 자리잡고있다. GET으로도 충분히 해결가능하지만 왜 POST메서드를 통해 해결 할까?
+
+책에서는 다음과 같은 문제점을 지적했다.
+
+- 회원 가입과 같은 데이터들이 브라우저 URL창에 노출되어 있어 보안 측면에서 불리하다
+- 요청라인에 대한 제한이 있기에 다량의 데이터를 처리하는데 한계가 있다.
+
+이러한 문제점들을 보완하고자 HTTP는 POST방식을 지원하였고, 이를 활용하여야 한다.

@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import model.User;
-import util.HttpRequestUtils;
+import util.MyHttpRequestUtils;
 
 public class RequestHandler extends Thread {
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
@@ -47,14 +47,17 @@ public class RequestHandler extends Thread {
             log.debug("request URI : {}", requestURI);
 
             if (requestURI.startsWith("/user/create")) {
-                String queryString = extractQueryFromURI(requestURI);
+                String queryString = MyHttpRequestUtils.extractQueryFromURI(requestURI);
                 log.debug("queryString: {}", queryString);
 
-                Map<String, String> params =
-                    HttpRequestUtils.parseQueryString(queryString);
-                User user = new User(params.get("userId"), params.get("password"), params.get("name"),
-                    params.get("email"));
-                log.debug("User : {}", user);
+                // Map<String, String> params =
+                //     HttpRequestUtils.parseQueryString(queryString);
+
+                Map<String, String> params = MyHttpRequestUtils.parseQueryString(queryString);
+                User userByParams = MyHttpRequestUtils.createUserByParams(params);
+                log.debug("User : {}", userByParams);
+
+                requestURI = "/index.html"; //회원 가입이 완료되면 index.html로 이동(redirect)
             }
 
             Path URIPath = new File("./webapp" + requestURI).toPath();
@@ -86,13 +89,5 @@ public class RequestHandler extends Thread {
         } catch (IOException e) {
             log.error(e.getMessage());
         }
-    }
-    
-    private String extractQueryFromURI(String URI) {
-        String queryStartChar = "\\?";
-        String[] split = URI.split(queryStartChar);
-        // int queryStartIndex = URI.indexOf("?");
-        // return URI.substring(queryStartIndex + 1);
-        return split[1];
     }
 }
