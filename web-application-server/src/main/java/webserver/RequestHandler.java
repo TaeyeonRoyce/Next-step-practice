@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import model.User;
+import util.IOUtils;
 import util.MyHttpRequestUtils;
 
 public class RequestHandler extends Thread {
@@ -35,8 +36,13 @@ public class RequestHandler extends Thread {
             // TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
             BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
             String brLine = br.readLine();
-            if (brLine == null) {
-                return;
+            int contentLength = 0;
+            while (!brLine.equals("")) {
+                log.debug("header : {}", brLine);
+                brLine = br.readLine();
+                if (brLine.contains("Content-Length")) {
+                    contentLength = getContentLength(brLine);
+                }
             }
             log.debug("request line : {}", brLine);
             DataOutputStream dos = new DataOutputStream(out);
@@ -46,14 +52,17 @@ public class RequestHandler extends Thread {
             String requestURI = httpRequestLine[1];
             log.debug("request URI : {}", requestURI);
 
-            if (requestURI.startsWith("/user/create")) {
-                String queryString = MyHttpRequestUtils.extractQueryFromURI(requestURI);
-                log.debug("queryString: {}", queryString);
+            if (requestURI.equals("/user/create")) {
+                log.debug("contentLength : {}", contentLength);
+                String body = IOUtils.readData(br, contentLength);
+
+                // String queryString = MyHttpRequestUtils.extractQueryFromURI(requestURI);
+                log.debug("body: {}", body);
 
                 // Map<String, String> params =
                 //     HttpRequestUtils.parseQueryString(queryString);
 
-                Map<String, String> params = MyHttpRequestUtils.parseQueryString(queryString);
+                Map<String, String> params = MyHttpRequestUtils.parseQueryString(body);
                 User userByParams = MyHttpRequestUtils.createUserByParams(params);
                 log.debug("User : {}", userByParams);
 
@@ -89,5 +98,10 @@ public class RequestHandler extends Thread {
         } catch (IOException e) {
             log.error(e.getMessage());
         }
+    }
+
+    private int getContentLength(String brLine) {
+        String[] headerTokens = brLine.split(":");
+        return Integer.parseInt(headerTokens[1].trim());
     }
 }
