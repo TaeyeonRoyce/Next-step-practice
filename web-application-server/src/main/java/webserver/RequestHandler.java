@@ -10,14 +10,11 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import model.User;
-import util.IOUtils;
-import util.MyHttpRequestUtils;
+import model.HttpMethod;
 
 public class RequestHandler extends Thread {
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
@@ -43,13 +40,18 @@ public class RequestHandler extends Thread {
             HttpMethod httpMethod = extractMethodFromRequest(requestLine);
             String requestURI = getRequestURI(requestLine);
 
-            //HttpMethod와 URI로 mapping하기
             MethodMapping methodMapping = new MethodMapping(httpMethod, requestURI);
 
-            //mapping이후 응답
-            String response = methodMapping.mapping(br);
+            //post Mapping 후 redirectURI로 redirect하기
+            if (httpMethod == HttpMethod.POST) {
+                //postMapping 메서드는 해당 URI에 대한 책임 수행 후 리다이렉트 할 URI반환
+                String redirectURI = methodMapping.postMapping(br);
 
-            Path URIPath = new File("./webapp" + response).toPath();
+                //302코드 반환
+                response302Header(dos, redirectURI);
+            }
+
+            Path URIPath = new File("./webapp" + requestURI).toPath();
 
             byte[] body = Files.readAllBytes(URIPath);
 
@@ -67,6 +69,17 @@ public class RequestHandler extends Thread {
             dos.writeBytes("HTTP/1.1 200 OK \r\n");
             dos.writeBytes("Content-Type: text/html;charset=utf-8\r\n");
             dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
+            dos.writeBytes("\r\n");
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+
+    private void response302Header(DataOutputStream dos, String URI) {
+        try {
+            dos.writeBytes("HTTP/1.1 302 Redirect \r\n");
+            dos.writeBytes("Location: " + URI + " \r\n");
             dos.writeBytes("\r\n");
         } catch (IOException e) {
             log.error(e.getMessage());

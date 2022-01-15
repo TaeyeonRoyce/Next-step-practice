@@ -27,10 +27,10 @@
 * [회원가입 데이터에 대한 예외처리하기](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/04_회원데이터예외처리.md)
 
 ### 요구사항 3 - post 방식으로 회원가입
-* [회원가입 기능 POST메서드로...](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/03_회원가입(post).md)
+* [회원가입 기능 POST메서드로...](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/05_회원가입(post).md)
 
 ### 요구사항 4 - redirect 방식으로 이동
-* 
+* [상태코드를 활용한 redirect](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/06_리다이렉트.md)
 
 ### 요구사항 5 - cookie
 * 

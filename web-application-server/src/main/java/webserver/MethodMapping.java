@@ -7,6 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import model.HttpMethod;
 import model.User;
 import util.IOUtils;
 import util.MyHttpRequestUtils;
@@ -22,13 +23,9 @@ public class MethodMapping {
 		this.URI = URI;
 	}
 
-	public String mapping(BufferedReader br) throws IOException {
-		if (httpMethod == HttpMethod.GET) {
-			return URI;
-		} else if (httpMethod == HttpMethod.POST) {
-			if (URI.equals("/user/create")) {
-				return userSignIn(br);
-			}
+	public String postMapping(BufferedReader br) throws IOException {
+		if (URI.equals("/user/create")) {
+			return userSignIn(br);
 		}
 		return null;
 	}
@@ -53,8 +50,9 @@ public class MethodMapping {
 		return "/index.html"; //회원 가입이 완료되면 index.html로 이동(redirect)
 	}
 
-	private int getContentLength(String singleLine) throws IOException {
+	private int getContentLength(String singleLine) {
 		String[] headerTokens = singleLine.split(":");
 		return Integer.parseInt(headerTokens[1].trim());
 	}
+
 }
