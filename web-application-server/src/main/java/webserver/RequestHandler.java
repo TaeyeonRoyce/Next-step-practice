@@ -34,42 +34,19 @@ public class RequestHandler extends Thread {
 
         try (InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
             // TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
-            BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-            String brLine = br.readLine();
-            int contentLength = 0;
-            while (!brLine.equals("")) {
-                log.debug("header : {}", brLine);
-                brLine = br.readLine();
-                if (brLine.contains("Content-Length")) {
-                    contentLength = getContentLength(brLine);
-                }
-            }
-            log.debug("request line : {}", brLine);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8")); //http header
             DataOutputStream dos = new DataOutputStream(out);
-            // byte[] body = "Hello World".getBytes();
 
-            String[] httpRequestLine = brLine.split(" "); //URI를 추출하기 위해 배열로 변환
-            String requestURI = httpRequestLine[1];
-            log.debug("request URI : {}", requestURI);
+            String requestLine = br.readLine();
+            log.debug("request line : {}", requestLine);
 
-            if (requestURI.equals("/user/create")) {
-                log.debug("contentLength : {}", contentLength);
-                String body = IOUtils.readData(br, contentLength);
+            HttpMethod httpMethod = extractMethodFromRequest(requestLine);
+            String requestURI = getRequestURI(requestLine);
 
-                // String queryString = MyHttpRequestUtils.extractQueryFromURI(requestURI);
-                log.debug("body: {}", body);
+            MethodMapping methodMapping = new MethodMapping(httpMethod, requestURI);
+            String returnURI = methodMapping.mapping(br);
 
-                // Map<String, String> params =
-                //     HttpRequestUtils.parseQueryString(queryString);
-
-                Map<String, String> params = MyHttpRequestUtils.parseQueryString(body);
-                User userByParams = MyHttpRequestUtils.createUserByParams(params);
-                log.debug("User : {}", userByParams);
-
-                requestURI = "/index.html"; //회원 가입이 완료되면 index.html로 이동(redirect)
-            }
-
-            Path URIPath = new File("./webapp" + requestURI).toPath();
+            Path URIPath = new File("./webapp" + returnURI).toPath();
 
             byte[] body = Files.readAllBytes(URIPath);
 
@@ -79,6 +56,8 @@ public class RequestHandler extends Thread {
             log.error(e.getMessage());
         }
     }
+
+
 
     private void response200Header(DataOutputStream dos, int lengthOfBodyContent) {
         try {
@@ -100,8 +79,14 @@ public class RequestHandler extends Thread {
         }
     }
 
-    private int getContentLength(String brLine) {
-        String[] headerTokens = brLine.split(":");
-        return Integer.parseInt(headerTokens[1].trim());
+
+
+    private HttpMethod extractMethodFromRequest(String request) {
+        String s = request.split(" ")[0];
+        return HttpMethod.getMethodByString(s);
+    }
+
+    private String getRequestURI(String requestLine) {
+        return requestLine.split(" ")[1];
     }
 }
