@@ -43,10 +43,13 @@ public class RequestHandler extends Thread {
             HttpMethod httpMethod = extractMethodFromRequest(requestLine);
             String requestURI = getRequestURI(requestLine);
 
+            //HttpMethod와 URI로 mapping하기
             MethodMapping methodMapping = new MethodMapping(httpMethod, requestURI);
-            String returnURI = methodMapping.mapping(br);
 
-            Path URIPath = new File("./webapp" + returnURI).toPath();
+            //mapping이후 응답
+            String response = methodMapping.mapping(br);
+
+            Path URIPath = new File("./webapp" + response).toPath();
 
             byte[] body = Files.readAllBytes(URIPath);
 
