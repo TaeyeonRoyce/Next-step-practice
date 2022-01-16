@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -35,10 +36,12 @@ public class RequestHandler extends Thread {
             DataOutputStream dos = new DataOutputStream(out);
 
             String requestLine = br.readLine();
-            log.debug("request line : {}", requestLine);
+
 
             HttpMethod httpMethod = extractMethodFromRequest(requestLine);
             String requestURI = getRequestURI(requestLine);
+            log.debug("httpMethod : {}", httpMethod);
+            log.debug("requestURI : {}", requestURI);
 
             MethodMapping methodMapping = new MethodMapping(httpMethod, requestURI);
 
@@ -49,22 +52,30 @@ public class RequestHandler extends Thread {
 
                 if (redirectURI.equals("SING_IN")) {
                     response302LoginSuccessHeader(dos);
+                    return;
                 } else if (redirectURI.equals("/user/login_failed.html")) {
                     response302Header(dos, redirectURI);
                     log.debug("login failed");
+                    return;
                 } else {
                     //302코드 반환
                     response302Header(dos, redirectURI);
                 }
-
             }
 
-            Path URIPath = new File("./webapp" + requestURI).toPath();
+            if (httpMethod == HttpMethod.GET && requestURI.equals("/user/list.html")) {
+                boolean login = methodMapping.isLogin(br);
+                if (!login) {
+                    responseResource(out, "/user/login.html");
+                    return;
+                }
+                byte[] body = methodMapping.createUserListTable().getBytes();
+                response200Header(dos, body.length);
+                responseBody(dos, body);
+            }
 
-            byte[] body = Files.readAllBytes(URIPath);
+            responseResource(out, requestURI);
 
-            response200Header(dos, body.length);
-            responseBody(dos, body);
         } catch (IOException e) {
             log.error(e.getMessage());
         }
@@ -114,8 +125,6 @@ public class RequestHandler extends Thread {
         }
     }
 
-
-
     private HttpMethod extractMethodFromRequest(String request) {
         String s = request.split(" ")[0];
         return HttpMethod.getMethodByString(s);
@@ -123,5 +132,15 @@ public class RequestHandler extends Thread {
 
     private String getRequestURI(String requestLine) {
         return requestLine.split(" ")[1];
+    }
+
+    private void responseResource(OutputStream out, String URI) throws IOException {
+        DataOutputStream dos = new DataOutputStream(out);
+
+        Path URIPath = new File("./webapp" + URI).toPath();
+        byte[] body = Files.readAllBytes(URIPath);
+
+        response200Header(dos, body.length);
+        responseBody(dos, body);
     }
 }

@@ -2,6 +2,7 @@ package webserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import db.DataBase;
 import model.HttpMethod;
 import model.User;
+import util.HttpRequestUtils;
 import util.IOUtils;
 import util.MyHttpRequestUtils;
 
@@ -29,6 +31,16 @@ public class MethodMapping {
 			return userSignUp(br);
 		} else if (URI.equals("/user/login")) {
 			return userSignIn(br);
+		}
+		return null;
+	}
+
+	public String getMapping(BufferedReader br) throws IOException {
+		if (URI.equals("/user/list.html")) {
+			if (!isLogin(br)) {
+				return "/user/login.html";
+			}
+			return createUserListTable();
 		}
 		return null;
 	}
@@ -64,8 +76,6 @@ public class MethodMapping {
 		} else {
 			return "/user/login_failed.html";
 		}
-
-
 	}
 
 	private String getBody(BufferedReader br) throws IOException {
@@ -81,6 +91,44 @@ public class MethodMapping {
 		String body = IOUtils.readData(br, contentLength);
 		log.debug("body: {}", body);
 		return body;
+	}
+
+	public boolean isLogin(BufferedReader br) throws IOException {
+		String singleLine = br.readLine();
+		while (!singleLine.equals("")) {
+			singleLine = br.readLine();
+			if (singleLine.contains("Cookie")) {
+				log.debug(singleLine);
+				return findLoginByCookie(singleLine);
+			}
+		}
+		return false;
+	}
+
+	private boolean findLoginByCookie(String line) {
+		Map<String, String> parseCookies = MyHttpRequestUtils.parseCookies(line);
+		String login = parseCookies.get("login");
+		if (login == null) {
+			return false;
+		}
+		log.debug("login : {}", login);
+
+		return Boolean.parseBoolean(login);
+	}
+
+	public String createUserListTable() {
+		Collection<User> users = DataBase.findAll();
+		StringBuilder sb = new StringBuilder();
+		sb.append("<table border='1'>");
+		for (User user : users) {
+			sb.append("<tr>");
+			sb.append("<td>" + user.getUserId() + "</td>");
+			sb.append("<td>" + user.getName() + "</td>");
+			sb.append("<td>" + user.getEmail() + "</td>");
+			sb.append("</tr>");
+		}
+		sb.append("</table>");
+		return sb.toString();
 	}
 
 }

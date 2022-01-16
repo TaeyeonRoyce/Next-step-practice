@@ -34,6 +34,7 @@
 
 ### 요구사항 5 - cookie
 * [쿠키를 활용한 로그인 구현](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/07_로그인.md)
+* [로그인 여부에 따른 사용자 목록 출력하기](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/08_사용자목록 출력.md)
 
 ### 요구사항 6 - stylesheet 적용
 * 

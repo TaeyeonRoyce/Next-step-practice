@@ -29,4 +29,18 @@ public class MyHttpRequestUtils {
 		return new User(params.get("userId"), params.get("password"), params.get("name"), params.get("email"));
 	}
 
+
+	//Cookie: login=true;
+	public static Map<String, String> parseCookies(String cookiesLine) {
+		Map<String, String> parseMap = new HashMap<>();
+
+		String[] cookies = cookiesLine.split(";|:");
+		for (int i = 1; i < cookies.length; i++) {
+			String[] keyValue = cookies[i].split("=");
+			parseMap.put(keyValue[0].trim(), keyValue[1].trim());
+		}
+		return parseMap;
+	}
+
+
 }

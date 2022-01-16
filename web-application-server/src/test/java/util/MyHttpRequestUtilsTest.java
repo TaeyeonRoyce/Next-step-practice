@@ -50,4 +50,20 @@ public class MyHttpRequestUtilsTest {
 		Assertions.assertEquals(userByParams.getPassword(), "121121");
 	}
 
+	@Test
+	void parseCookieTest() {
+		//given
+		String cookies = "Cookie: login=true;";
+
+		//when
+		Map<String, String> parseCookies = MyHttpRequestUtils.parseCookies(cookies);
+		for(String key : parseCookies.keySet() ){
+			String value = parseCookies.get(key);
+			System.out.println(String.format("키 : "+key+", 값 : "+value));
+		}
+		//then
+		String login = parseCookies.get("login");
+		Assertions.assertEquals(login, "true");
+	}
+
 }
