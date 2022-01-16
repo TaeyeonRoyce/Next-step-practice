@@ -61,9 +61,7 @@ public class RequestHandler extends Thread {
                     //302코드 반환
                     response302Header(dos, redirectURI);
                 }
-            }
-
-            if (httpMethod == HttpMethod.GET && requestURI.equals("/user/list.html")) {
+            } else if (httpMethod == HttpMethod.GET && requestURI.equals("/user/list.html")) {
                 boolean login = methodMapping.isLogin(br);
                 if (!login) {
                     responseResource(out, "/user/login.html");
@@ -71,6 +69,10 @@ public class RequestHandler extends Thread {
                 }
                 byte[] body = methodMapping.createUserListTable().getBytes();
                 response200Header(dos, body.length);
+                responseBody(dos, body);
+            } else if (httpMethod == HttpMethod.GET && requestURI.endsWith(".css")) {
+                byte[] body = Files.readAllBytes(new File("./webapp" + requestURI).toPath());
+                response200CssHeader(dos, body.length);
                 responseBody(dos, body);
             }
 
@@ -119,6 +121,17 @@ public class RequestHandler extends Thread {
             dos.writeBytes("HTTP/1.1 302 Redirect \r\n");
             dos.writeBytes("Set-Cookie: login=true \r\n");
             dos.writeBytes("Location: /index.html \r\n");
+            dos.writeBytes("\r\n");
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void response200CssHeader(DataOutputStream dos, int lengthOfBodyContent) {
+        try {
+            dos.writeBytes("HTTP/1.1 200 OK \r\n");
+            dos.writeBytes("Content-type: text/css\r\n");
+            dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
             dos.writeBytes("\r\n");
         } catch (IOException e) {
             log.error(e.getMessage());
