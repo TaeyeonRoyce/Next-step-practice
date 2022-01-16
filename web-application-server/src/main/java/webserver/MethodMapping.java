@@ -34,17 +34,7 @@ public class MethodMapping {
 	}
 
 	private String userSignUp(BufferedReader br) throws IOException {
-		String singleLine = br.readLine();
-		int contentLength = 0;
-		while (!singleLine.equals("")) {
-			singleLine = br.readLine();
-			if (singleLine.contains("Content-Length")) {
-				contentLength = getContentLength(singleLine);
-			}
-		}
-
-		String body = IOUtils.readData(br, contentLength);
-		log.debug("body: {}", body);
+		String body = getBody(br);
 
 		Map<String, String> params = MyHttpRequestUtils.parseQueryString(body);
 		User userByParams = MyHttpRequestUtils.createUserByParams(params);
@@ -60,17 +50,7 @@ public class MethodMapping {
 	}
 
 	private String userSignIn(BufferedReader br) throws IOException {
-		String singleLine = br.readLine();
-		int contentLength = 0;
-		while (!singleLine.equals("")) {
-			singleLine = br.readLine();
-			if (singleLine.contains("Content-Length")) {
-				contentLength = getContentLength(singleLine);
-			}
-		}
-
-		String body = IOUtils.readData(br, contentLength);
-		log.debug("body: {}", body);
+		String body = getBody(br);
 
 		Map<String, String> params = MyHttpRequestUtils.parseQueryString(body);
 		User user = DataBase.findUserById(params.get("userId"));
@@ -86,6 +66,21 @@ public class MethodMapping {
 		}
 
 
+	}
+
+	private String getBody(BufferedReader br) throws IOException {
+		String singleLine = br.readLine();
+		int contentLength = 0;
+		while (!singleLine.equals("")) {
+			singleLine = br.readLine();
+			if (singleLine.contains("Content-Length")) {
+				contentLength = getContentLength(singleLine);
+			}
+		}
+
+		String body = IOUtils.readData(br, contentLength);
+		log.debug("body: {}", body);
+		return body;
 	}
 
 }
