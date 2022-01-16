@@ -26,8 +26,8 @@ public class RequestHandler extends Thread {
     }
 
     public void run() {
-        log.debug("New Client Connect! Connected IP : {}, Port : {}", connection.getInetAddress(),
-                connection.getPort());
+        // log.debug("New Client Connect! Connected IP : {}, Port : {}", connection.getInetAddress(),
+        //         connection.getPort());
 
         try (InputStream in = connection.getInputStream(); OutputStream out = connection.getOutputStream()) {
             // TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
@@ -47,8 +47,16 @@ public class RequestHandler extends Thread {
                 //postMapping 메서드는 해당 URI에 대한 책임 수행 후 리다이렉트 할 URI반환
                 String redirectURI = methodMapping.postMapping(br);
 
-                //302코드 반환
-                response302Header(dos, redirectURI);
+                if (redirectURI.equals("SING_IN")) {
+                    response302LoginSuccessHeader(dos);
+                } else if (redirectURI.equals("/user/login_failed.html")) {
+                    response302Header(dos, redirectURI);
+                    log.debug("login failed");
+                } else {
+                    //302코드 반환
+                    response302Header(dos, redirectURI);
+                }
+
             }
 
             Path URIPath = new File("./webapp" + requestURI).toPath();
@@ -90,6 +98,17 @@ public class RequestHandler extends Thread {
         try {
             dos.write(body, 0, body.length);
             dos.flush();
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    private void response302LoginSuccessHeader(DataOutputStream dos) {
+        try {
+            dos.writeBytes("HTTP/1.1 302 Redirect \r\n");
+            dos.writeBytes("Set-Cookie: login=true \r\n");
+            dos.writeBytes("Location: /index.html \r\n");
+            dos.writeBytes("\r\n");
         } catch (IOException e) {
             log.error(e.getMessage());
         }

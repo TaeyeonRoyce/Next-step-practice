@@ -33,7 +33,7 @@
 * [상태코드를 활용한 redirect](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/06_리다이렉트.md)
 
 ### 요구사항 5 - cookie
-* 
+* [쿠키를 활용한 로그인 구현](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/07_로그인.md)
 
 ### 요구사항 6 - stylesheet 적용
 * 
