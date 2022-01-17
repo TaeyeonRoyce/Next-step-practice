@@ -34,13 +34,19 @@
 
 ### 요구사항 5 - cookie
 * [쿠키를 활용한 로그인 구현](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/07_로그인.md)
-* [로그인 여부에 따른 사용자 목록 출력하기](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/08_사용자목록 출력.md)
+* [로그인 여부에 따른 사용자 목록 출력하기](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/08_사용자목록%20출력.md)
 
 # 리팩토링
 
 ### 요청 데이터를 처리하는 로직을 별도 클래스로 분리하기
 
 - [HttpRequest 테스트 코드 작성](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/test/java/webserver/HttpRequestTest.java)
+
 - [HttpResponse 테스트 코드 작성](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/test/java/webserver/HttpResponseTest.java)
+
 - [TDD를 적용하여 요청 데이터 처리 로직(HttpRequest) 구현](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/main/java/webserver/HttpRequest.java)
+
+  [HttpRequest에 대한 리팩토링](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/09_HttpRequest%20리팩토링.md)
+
+  
 
