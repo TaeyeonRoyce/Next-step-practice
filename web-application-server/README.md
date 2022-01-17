@@ -40,7 +40,7 @@
 
 ### 요청 데이터를 처리하는 로직을 별도 클래스로 분리하기
 
-- 테스트 코드 작성
-
-- ### 
+- [HttpRequest 테스트 코드 작성](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/test/java/webserver/HttpRequestTest.java)
+- [HttpResponse 테스트 코드 작성](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/test/java/webserver/HttpResponseTest.java)
+- [TDD를 적용하여 요청 데이터 처리 로직(HttpRequest) 구현](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/main/java/webserver/HttpRequest.java)
 

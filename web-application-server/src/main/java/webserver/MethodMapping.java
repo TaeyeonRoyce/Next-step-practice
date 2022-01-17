@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import db.DataBase;
 import model.HttpMethod;
 import model.User;
-import util.HttpRequestUtils;
 import util.IOUtils;
 import util.MyHttpRequestUtils;
 
@@ -85,6 +84,7 @@ public class MethodMapping {
 			singleLine = br.readLine();
 			if (singleLine.contains("Content-Length")) {
 				contentLength = getContentLength(singleLine);
+				log.debug(String.valueOf(contentLength));
 			}
 		}
 
