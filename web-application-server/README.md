@@ -48,5 +48,5 @@
 
   [HttpRequest에 대한 리팩토링](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/09_HttpRequest%20리팩토링.md)
 
-  
+- [TDD를 적용하여 응답 처리 로직(HttpResponse) 구현](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/main/java/webserver/HttpResponse.java)
 

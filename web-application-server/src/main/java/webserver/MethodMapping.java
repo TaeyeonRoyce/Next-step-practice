@@ -18,24 +18,24 @@ public class MethodMapping {
 	private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
 	private HttpMethod httpMethod;
-	private String URI;
+	private String path;
 
-	public MethodMapping(HttpMethod httpMethod, String URI) {
-		this.httpMethod = httpMethod;
-		this.URI = URI;
+	public MethodMapping(HttpRequest httpRequest) {
+		this.httpMethod = httpRequest.getMethod();
+		this.path = httpRequest.getPath();
 	}
 
 	public String postMapping(BufferedReader br) throws IOException {
-		if (URI.equals("/user/create")) {
+		if (path.equals("/user/create")) {
 			return userSignUp(br);
-		} else if (URI.equals("/user/login")) {
+		} else if (path.equals("/user/login")) {
 			return userSignIn(br);
 		}
 		return null;
 	}
 
 	public String getMapping(BufferedReader br) throws IOException {
-		if (URI.equals("/user/list.html")) {
+		if (path.equals("/user/list.html")) {
 			if (!isLogin(br)) {
 				return "/user/login.html";
 			}

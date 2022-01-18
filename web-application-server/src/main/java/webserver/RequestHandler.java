@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -34,49 +33,42 @@ public class RequestHandler extends Thread {
             // TODO 사용자 요청에 대한 처리는 이 곳에 구현하면 된다.
             BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8")); //http header
             DataOutputStream dos = new DataOutputStream(out);
-
-            String requestLine = br.readLine();
-
-
-            HttpMethod httpMethod = extractMethodFromRequest(requestLine);
-            String requestURI = getRequestURI(requestLine);
-            log.debug("httpMethod : {}", httpMethod);
-            log.debug("requestURI : {}", requestURI);
-
-            MethodMapping methodMapping = new MethodMapping(httpMethod, requestURI);
-
-            //post Mapping 후 redirectURI로 redirect하기
-            if (httpMethod == HttpMethod.POST) {
-                //postMapping 메서드는 해당 URI에 대한 책임 수행 후 리다이렉트 할 URI반환
-                String redirectURI = methodMapping.postMapping(br);
-
-                if (redirectURI.equals("SING_IN")) {
-                    response302LoginSuccessHeader(dos);
-                    return;
-                } else if (redirectURI.equals("/user/login_failed.html")) {
-                    response302Header(dos, redirectURI);
-                    log.debug("login failed");
-                    return;
-                } else {
-                    //302코드 반환
-                    response302Header(dos, redirectURI);
-                }
-            } else if (httpMethod == HttpMethod.GET && requestURI.equals("/user/list.html")) {
-                boolean login = methodMapping.isLogin(br);
-                if (!login) {
-                    responseResource(out, "/user/login.html");
-                    return;
-                }
-                byte[] body = methodMapping.createUserListTable().getBytes();
-                response200Header(dos, body.length);
-                responseBody(dos, body);
-            } else if (httpMethod == HttpMethod.GET && requestURI.endsWith(".css")) {
-                byte[] body = Files.readAllBytes(new File("./webapp" + requestURI).toPath());
-                response200CssHeader(dos, body.length);
-                responseBody(dos, body);
-            }
-
-            responseResource(out, requestURI);
+            HttpRequest httpRequest = new HttpRequest(in);
+			//
+            // MethodMapping mm = new MethodMapping(httpRequest);
+			//
+            // //post Mapping 후 redirectURI로 redirect하기
+            // if (path.equals("/user/create")) {
+            //     //postMapping 메서드는 해당 URI에 대한 책임 수행 후 리다이렉트 할 URI반환
+            //     String redirectURI = methodMapping.postMapping(br);
+			//
+            //     if (redirectURI.equals("SING_IN")) {
+            //         response302LoginSuccessHeader(dos);
+            //         return;
+            //     } else if (redirectURI.equals("/user/login_failed.html")) {
+            //         response302Header(dos, redirectURI);
+            //         log.debug("login failed");
+            //         return;
+            //     } else {
+            //         //302코드 반환
+            //         response302Header(dos, redirectURI);
+            //     }
+            // } else if (httpMethod == HttpMethod.GET && requestURI.equals("/user/list.html")) {
+            //     boolean login = methodMapping.isLogin(br);
+            //     if (!login) {
+            //         responseResource(out, "/user/login.html");
+            //         return;
+            //     }
+            //     byte[] body = methodMapping.createUserListTable().getBytes();
+            //     response200Header(dos, body.length);
+            //     responseBody(dos, body);
+            // } else if (httpMethod == HttpMethod.GET && requestURI.endsWith(".css")) {
+            //     byte[] body = Files.readAllBytes(new File("./webapp" + requestURI).toPath());
+            //     response200CssHeader(dos, body.length);
+            //     responseBody(dos, body);
+            // }
+			//
+            // responseResource(out, requestURI);
 
         } catch (IOException e) {
             log.error(e.getMessage());

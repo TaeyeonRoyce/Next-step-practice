@@ -38,7 +38,8 @@ public class HttpRequest {
 			handleRequestLine = new HandleRequestLine(line);
 			handleHttpHeaders = new HandleHttpHeaders(br);
 
-			if (getMethod() == HttpMethod.POST) {
+			if (getMethod() == HttpMethod.POST)
+			{
 				String body = IOUtils.readData(br, Integer.parseInt(getHeader("Content-Length")));
 				this.params = MyHttpRequestUtils.parseQueryString(body);
 			} else {
