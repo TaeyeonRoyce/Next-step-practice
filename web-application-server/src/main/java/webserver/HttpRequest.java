@@ -11,6 +11,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import model.HttpMethod;
 import util.IOUtils;
 import util.MyHttpRequestUtils;
 
@@ -37,7 +38,7 @@ public class HttpRequest {
 			handleRequestLine = new HandleRequestLine(line);
 			handleHttpHeaders = new HandleHttpHeaders(br);
 
-			if (getMethod().equals("POST")) {
+			if (getMethod() == HttpMethod.POST) {
 				String body = IOUtils.readData(br, Integer.parseInt(getHeader("Content-Length")));
 				this.params = MyHttpRequestUtils.parseQueryString(body);
 			} else {
@@ -53,7 +54,7 @@ public class HttpRequest {
 		return handleHttpHeaders.getHeaders();
 	}
 
-	public String getMethod() {
+	public HttpMethod getMethod() {
 		return handleRequestLine.getMethod();
 	}
 

@@ -235,3 +235,26 @@ public class HttpRequest {
 해당 클래스의 무게가 눈에 띄게 줄어들었다. 추가로 필드변수들도 줄어들었는데, 역할을 분리하여 가져간 클래스들이 필요한 필드또한 분리하여 가져갔기 때문이다.
 
 `getXXX()`메서드를 보면 해당 역할을 수행하는 클래스로부터 데이터를 받아오는 것을 알 수 있다.
+
+### HttpMethod - Enum으로 분류
+
+GET, POST메소드에 대해서 `.equals("GET")`, `.eqauls("POST")`처럼 하드코딩하여 구분하였던 부분을 Enum을 활용하여 리팩토링 하였다.
+
+```java
+package model;
+
+public enum HttpMethod {
+	GET,
+	POST;
+
+  public static HttpMethod getMethodByString(String method) {
+    if (method.equals("GET")) {
+      return GET;
+    } else if (method.equals("POST")) {
+      return POST;
+    }
+    return null;
+  }
+}
+```
+

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import model.HttpMethod;
+
 public class HandleRequestLineTest {
 
 	@Test
@@ -15,7 +17,7 @@ public class HandleRequestLineTest {
 		HandleRequestLine hr = new HandleRequestLine(requestLine);
 
 		//then
-		assertEquals(hr.getMethod(), "GET");
+		assertEquals(hr.getMethod(), HttpMethod.GET);
 		assertEquals(hr.getPath(), "/user/create");
 		assertEquals(hr.getParams().get("name"), "Taeyeon");
 	}
@@ -29,7 +31,7 @@ public class HandleRequestLineTest {
 		HandleRequestLine hr = new HandleRequestLine(requestLine);
 
 		//then
-		assertEquals(hr.getMethod(), "POST");
+		assertEquals(hr.getMethod(), HttpMethod.POST);
 		assertEquals(hr.getPath(), "/user/create");
 	}
 }
