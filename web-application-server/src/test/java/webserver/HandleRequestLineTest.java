@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import model.HttpMethod;
+import webserver.request.HandleRequestLine;
 
 public class HandleRequestLineTest {
 

@@ -1,4 +1,4 @@
-package webserver;
+package webserver.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import model.HttpMethod;
+import util.HttpRequestUtils;
 import util.IOUtils;
-import util.MyHttpRequestUtils;
 
 public class HttpRequest {
 	private static final Logger log = LoggerFactory.getLogger(HttpRequest.class);
@@ -22,6 +22,7 @@ public class HttpRequest {
 
 	private HandleRequestLine handleRequestLine;
 	private HandleHttpHeaders handleHttpHeaders;
+
 	public HttpRequest(InputStream inputStream) {
 		saveFieldByInputStream(inputStream);
 	}
@@ -38,10 +39,9 @@ public class HttpRequest {
 			handleRequestLine = new HandleRequestLine(line);
 			handleHttpHeaders = new HandleHttpHeaders(br);
 
-			if (getMethod() == HttpMethod.POST)
-			{
+			if (getMethod() == HttpMethod.POST) {
 				String body = IOUtils.readData(br, Integer.parseInt(getHeader("Content-Length")));
-				this.params = MyHttpRequestUtils.parseQueryString(body);
+				this.params = HttpRequestUtils.parseQueryString(body);
 			} else {
 				this.params = handleRequestLine.getParams();
 			}

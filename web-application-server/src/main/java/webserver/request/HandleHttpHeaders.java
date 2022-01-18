@@ -1,4 +1,4 @@
-package webserver;
+package webserver.request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +20,6 @@ public class HandleHttpHeaders {
 	private void handleHttpHeaders(BufferedReader br) throws IOException {
 		String line = br.readLine();
 		while (!line.equals("")) {
-			log.debug("header : {}", line);
 			String[] splitLine = line.split(":");
 			this.headers.put(splitLine[0].trim(), splitLine[1].trim());
 			line = br.readLine();

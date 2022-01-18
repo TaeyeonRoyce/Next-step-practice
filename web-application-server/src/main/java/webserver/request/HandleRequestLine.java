@@ -1,4 +1,4 @@
-package webserver;
+package webserver.request;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import model.HttpMethod;
-import util.MyHttpRequestUtils;
+import util.HttpRequestUtils;
 
 public class HandleRequestLine {
 	private static final Logger log = LoggerFactory.getLogger(HttpRequest.class);
@@ -34,9 +34,12 @@ public class HandleRequestLine {
 	}
 
 	private void findQueryStringFromPath(String path) {
+
 		String[] splitPath = path.split("\\?");
 		this.path = splitPath[0];
-		this.params = MyHttpRequestUtils.parseQueryString(splitPath[1]);
+		if (splitPath.length > 1) {
+			this.params = HttpRequestUtils.parseQueryString(splitPath[1]);
+		}
 	}
 
 	public HttpMethod getMethod() {

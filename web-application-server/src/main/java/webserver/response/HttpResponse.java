@@ -1,4 +1,4 @@
-package webserver;
+package webserver.response;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -79,6 +79,7 @@ public class HttpResponse {
 	private void response200Header(int lengthOfBodyContent) {
 		try {
 			dos.writeBytes("HTTP/1.1 200 OK \r\n");
+			processHeader();
 			dos.writeBytes("Content-Type: text/html;charset=utf-8\r\n");
 			dos.writeBytes("Content-Length: " + lengthOfBodyContent + "\r\n");
 			dos.writeBytes("\r\n");
