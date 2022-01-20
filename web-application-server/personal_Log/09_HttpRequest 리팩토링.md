@@ -43,7 +43,7 @@ private void findQueryStringFromPath(String path) {
   import org.slf4j.Logger;
   import org.slf4j.LoggerFactory;
   
-  import util.MyHttpRequestUtils;import webserver.request.HttpRequest;
+  import util.MyHttpRequestUtils;import webserver.handmade.request.HttpRequest;
   
   public class HandleRequestLine {
   	private static final Logger log = LoggerFactory.getLogger(HttpRequest.class);

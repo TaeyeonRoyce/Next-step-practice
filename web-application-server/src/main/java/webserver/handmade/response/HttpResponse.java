@@ -1,4 +1,4 @@
-package webserver.response;
+package webserver.handmade.response;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -91,6 +91,7 @@ public class HttpResponse {
 	private void responseBody(byte[] body) {
 		try {
 			dos.write(body, 0, body.length);
+			dos.writeBytes("\r\n");
 			dos.flush();
 		} catch (IOException e) {
 			log.error(e.getMessage());

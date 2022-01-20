@@ -81,11 +81,11 @@ if (requestURI.startsWith("/user/create")) {
 
 ```java
 // log
-23:57:34.487 [DEBUG] [Thread-2] [webserver.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 65051
-23:57:34.488 [DEBUG] [Thread-2] [webserver.RequestHandler] - request line : GET /user/create?userId=asdf&password=asdf&name=a&email=a%40gmail.com HTTP/1.1
-23:57:34.488 [DEBUG] [Thread-2] [webserver.RequestHandler] - request URI : /user/create?userId=asdf&password=asdf&name=a&email=a%40gmail.com
-23:57:34.488 [DEBUG] [Thread-2] [webserver.RequestHandler] - queryString: userId=asdf&password=asdf&name=a&email=a%40gmail.com
-23:57:34.488 [DEBUG] [Thread-2] [webserver.RequestHandler] - User : User [userId=asdf, password=asdf, name=a, email=a%40gmail.com]
+23:57:34.487 [DEBUG] [Thread-2] [webserver.handmade.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 65051
+23:57:34.488 [DEBUG] [Thread-2] [webserver.handmade.RequestHandler] - request line : GET /user/create?userId=asdf&password=asdf&name=a&email=a%40gmail.com HTTP/1.1
+23:57:34.488 [DEBUG] [Thread-2] [webserver.handmade.RequestHandler] - request URI : /user/create?userId=asdf&password=asdf&name=a&email=a%40gmail.com
+23:57:34.488 [DEBUG] [Thread-2] [webserver.handmade.RequestHandler] - queryString: userId=asdf&password=asdf&name=a&email=a%40gmail.com
+23:57:34.488 [DEBUG] [Thread-2] [webserver.handmade.RequestHandler] - User : User [userId=asdf, password=asdf, name=a, email=a%40gmail.com]
 ```
 
 이렇게 클라이언트로부터 입력받은 회원가입 데이터를 통해 User를 생성 및 저장하였다.

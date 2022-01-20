@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 import org.junit.jupiter.api.Test;
 
-import webserver.response.HttpResponse;
+import webserver.handmade.response.HttpResponse;
 
 public class HttpResponseTest {
 	private String testDirectory = "./src/test/resources";

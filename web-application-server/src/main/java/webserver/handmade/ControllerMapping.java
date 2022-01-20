@@ -1,12 +1,12 @@
-package webserver;
+package webserver.handmade;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import webserver.controller.Controller;
-import webserver.controller.CreateUserController;
-import webserver.controller.ListController;
-import webserver.controller.LoginController;
+import webserver.handmade.controller.Controller;
+import webserver.handmade.controller.CreateUserController;
+import webserver.handmade.controller.ListController;
+import webserver.handmade.controller.LoginController;
 
 public class ControllerMapping {
 
@@ -21,6 +21,4 @@ public class ControllerMapping {
 	public static Controller getControllerByPath(String path) {
 		return controllerMap.get(path);
 	}
-
-
 }

@@ -53,7 +53,7 @@ try (InputStream in = connection.getInputStream();
   }
   log.debug("request line : {}", brLine);
   /*
-  15:25:02.717 [DEBUG] [Thread-0] [webserver.RequestHandler] - request line : GET /index.html HTTP/1.1
+  15:25:02.717 [DEBUG] [Thread-0] [webserver.handmade.RequestHandler] - request line : GET /index.html HTTP/1.1
   */
 }
 ```
@@ -67,7 +67,7 @@ String[] httpRequestLine = brLine.split(" "); //URI를 추출하기 위해 배�
 String requestUri = httpRequestLine[1];
 log.debug("request uri : {}", requestUri);
 /*
-15:40:03.692 [DEBUG] [Thread-6] [webserver.RequestHandler] - request uri : /index.html
+15:40:03.692 [DEBUG] [Thread-6] [webserver.handmade.RequestHandler] - request uri : /index.html
 */
 ```
 
@@ -97,25 +97,25 @@ responseBody(dos, body);
 ### 로깅 분석
 
 ```
-15:44:03.826 [INFO ] [main] [webserver.WebServer] - Web Application Server started 8080 port.
-15:44:05.897 [DEBUG] [Thread-0] [webserver.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60623
-15:44:05.900 [DEBUG] [Thread-0] [webserver.RequestHandler] - request line : GET /index.html HTTP/1.1
-15:44:05.902 [DEBUG] [Thread-0] [webserver.RequestHandler] - request uri : /index.html
-15:44:05.910 [DEBUG] [Thread-1] [webserver.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60624
-15:44:05.911 [DEBUG] [Thread-3] [webserver.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60626
-15:44:05.912 [DEBUG] [Thread-5] [webserver.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60628
-15:44:05.912 [DEBUG] [Thread-3] [webserver.RequestHandler] - request line : GET /js/jquery-2.2.0.min.js HTTP/1.1
-15:44:05.914 [DEBUG] [Thread-5] [webserver.RequestHandler] - request line : GET /js/scripts.js HTTP/1.1
-15:44:05.910 [DEBUG] [Thread-2] [webserver.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60625
-15:44:05.914 [DEBUG] [Thread-3] [webserver.RequestHandler] - request uri : /js/jquery-2.2.0.min.js
-15:44:05.917 [DEBUG] [Thread-5] [webserver.RequestHandler] - request uri : /js/scripts.js
-15:44:05.912 [DEBUG] [Thread-1] [webserver.RequestHandler] - request line : GET /css/bootstrap.min.css HTTP/1.1
-15:44:05.912 [DEBUG] [Thread-4] [webserver.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60627
-15:44:05.921 [DEBUG] [Thread-1] [webserver.RequestHandler] - request uri : /css/bootstrap.min.css
-15:44:05.921 [DEBUG] [Thread-4] [webserver.RequestHandler] - request line : GET /js/bootstrap.min.js HTTP/1.1
-15:44:05.922 [DEBUG] [Thread-4] [webserver.RequestHandler] - request uri : /js/bootstrap.min.js
-15:44:05.921 [DEBUG] [Thread-2] [webserver.RequestHandler] - request line : GET /css/styles.css HTTP/1.1
-15:44:05.922 [DEBUG] [Thread-2] [webserver.RequestHandler] - request uri : /css/styles.css
+15:44:03.826 [INFO ] [main] [webserver.handmade.WebServer] - Web Application Server started 8080 port.
+15:44:05.897 [DEBUG] [Thread-0] [webserver.handmade.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60623
+15:44:05.900 [DEBUG] [Thread-0] [webserver.handmade.RequestHandler] - request line : GET /index.html HTTP/1.1
+15:44:05.902 [DEBUG] [Thread-0] [webserver.handmade.RequestHandler] - request uri : /index.html
+15:44:05.910 [DEBUG] [Thread-1] [webserver.handmade.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60624
+15:44:05.911 [DEBUG] [Thread-3] [webserver.handmade.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60626
+15:44:05.912 [DEBUG] [Thread-5] [webserver.handmade.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60628
+15:44:05.912 [DEBUG] [Thread-3] [webserver.handmade.RequestHandler] - request line : GET /js/jquery-2.2.0.min.js HTTP/1.1
+15:44:05.914 [DEBUG] [Thread-5] [webserver.handmade.RequestHandler] - request line : GET /js/scripts.js HTTP/1.1
+15:44:05.910 [DEBUG] [Thread-2] [webserver.handmade.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60625
+15:44:05.914 [DEBUG] [Thread-3] [webserver.handmade.RequestHandler] - request uri : /js/jquery-2.2.0.min.js
+15:44:05.917 [DEBUG] [Thread-5] [webserver.handmade.RequestHandler] - request uri : /js/scripts.js
+15:44:05.912 [DEBUG] [Thread-1] [webserver.handmade.RequestHandler] - request line : GET /css/bootstrap.min.css HTTP/1.1
+15:44:05.912 [DEBUG] [Thread-4] [webserver.handmade.RequestHandler] - New Client Connect! Connected IP : /0:0:0:0:0:0:0:1, Port : 60627
+15:44:05.921 [DEBUG] [Thread-1] [webserver.handmade.RequestHandler] - request uri : /css/bootstrap.min.css
+15:44:05.921 [DEBUG] [Thread-4] [webserver.handmade.RequestHandler] - request line : GET /js/bootstrap.min.js HTTP/1.1
+15:44:05.922 [DEBUG] [Thread-4] [webserver.handmade.RequestHandler] - request uri : /js/bootstrap.min.js
+15:44:05.921 [DEBUG] [Thread-2] [webserver.handmade.RequestHandler] - request line : GET /css/styles.css HTTP/1.1
+15:44:05.922 [DEBUG] [Thread-2] [webserver.handmade.RequestHandler] - request uri : /css/styles.css
 ```
 
 재밌는 점은, 클라이언트는 분명 `localhost:8080/index.html`이라는 요청을 한 번만 보냈는데, 다수의 `New Client Connect! Connected IP`, `request uri : /js/bootstrap.min.js`, `request uri : /js/scripts.js` 등 여러 요청이 수행됬음을 알 수 있다.

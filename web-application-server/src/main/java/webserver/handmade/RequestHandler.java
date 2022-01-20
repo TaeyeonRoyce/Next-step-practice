@@ -1,4 +1,4 @@
-package webserver;
+package webserver.handmade;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,9 +9,9 @@ import java.net.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import webserver.controller.Controller;
-import webserver.request.HttpRequest;
-import webserver.response.HttpResponse;
+import webserver.handmade.controller.Controller;
+import webserver.handmade.request.HttpRequest;
+import webserver.handmade.response.HttpResponse;
 
 public class RequestHandler extends Thread {
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);

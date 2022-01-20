@@ -1,8 +1,8 @@
-package webserver.controller;
+package webserver.handmade.controller;
 
 import model.HttpMethod;
-import webserver.request.HttpRequest;
-import webserver.response.HttpResponse;
+import webserver.handmade.request.HttpRequest;
+import webserver.handmade.response.HttpResponse;
 
 abstract public class AbstractController implements Controller {
 

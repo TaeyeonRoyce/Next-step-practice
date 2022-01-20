@@ -24,7 +24,7 @@
 로깅을 해보면,
 
 ```
-17:01:42.356 [DEBUG] [Thread-12] [webserver.RequestHandler] - request line : POST /user/create HTTP/1.1
+17:01:42.356 [DEBUG] [Thread-12] [webserver.handmade.RequestHandler] - request line : POST /user/create HTTP/1.1
 ```
 
 보이는 것 처럼 GET방식과 다르게 URI에 Data가 노출되지 않아 보안적인 부분에서 조금 더 안전하긴 하다.
@@ -56,18 +56,18 @@ http헤더의 Content-Length를 알면, body내에 있는 원하는 정보를 �
 http메세지를 출력해보면, 다음과 같은 긴 정보들을 얻을 수 있다.
 
 ```
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - request line : POST /user/create HTTP/1.1
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - Origin: http://localhost:8080
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - Content-Type: application/x-www-form-urlencoded
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - Accept-Encoding: gzip, deflate
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - Connection: keep-alive
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - Upgrade-Insecure-Requests: 1
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Safari/605.1.15
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - Referer: http://localhost:8080/user/form.html
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - Content-Length: 59
-17:31:19.237 [DEBUG] [Thread-17] [webserver.RequestHandler] - Accept-Language: en-us
-17:35:50.218 [DEBUG] [Thread-0] [webserver.RequestHandler] - body: userId=Royce&password=1q2w3e4r&name=Won&email=aaa%40gmail.com
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - request line : POST /user/create HTTP/1.1
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - Origin: http://localhost:8080
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - Content-Type: application/x-www-form-urlencoded
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - Accept-Encoding: gzip, deflate
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - Connection: keep-alive
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - Upgrade-Insecure-Requests: 1
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Safari/605.1.15
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - Referer: http://localhost:8080/user/form.html
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - Content-Length: 59
+17:31:19.237 [DEBUG] [Thread-17] [webserver.handmade.RequestHandler] - Accept-Language: en-us
+17:35:50.218 [DEBUG] [Thread-0] [webserver.handmade.RequestHandler] - body: userId=Royce&password=1q2w3e4r&name=Won&email=aaa%40gmail.com
 ```
 
 ```java
@@ -83,7 +83,7 @@ public String userSignIn(BufferedReader br) throws IOException {
 		}
   	String body = IOUtils.readData(br, contentLength);
 		log.debug("body: {}", body);
-  //17:35:50.218 [DEBUG] [Thread-0] [webserver.RequestHandler] - body: userId=Royce&password=1q2w3e4r&name=Won&email=aaa%40gmail.com
+  //17:35:50.218 [DEBUG] [Thread-0] [webserver.handmade.RequestHandler] - body: userId=Royce&password=1q2w3e4r&name=Won&email=aaa%40gmail.com
 
 		Map<String, String> params = MyHttpRequestUtils.parseQueryString(body);
 		User userByParams = MyHttpRequestUtils.createUserByParams(params);
