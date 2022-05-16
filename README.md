@@ -46,12 +46,11 @@
 
 - [HttpResponse 테스트 코드 작성](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/test/java/webserver/HttpResponseTest.java)
 
-- [TDD를 적용하여 요청 데이터 처리 로직(HttpRequest) 구현](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/main/java/webserver/HttpRequest.java)
+- [TDD를 적용하여 요청 데이터 처리 로직(HttpRequest) 구현](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/main/java/webserver/handmade/request/HttpRequest.java)
 
   [HttpRequest에 대한 리팩토링](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/personal_Log/09_HttpRequest%20리팩토링.md)
 
-- [TDD를 적용하여 응답 처리 로직(HttpResponse) 구현](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/main/java/webserver/HttpResponse.java)
-
+- [TDD를 적용하여 응답 처리 로직(HttpResponse) 구현](https://github.com/TaeyeonRoyce/Next-step-practice/blob/master/web-application-server/src/main/java/webserver/handmade/response/HttpResponse.java)
 
 # 서블릿/JSP
 
