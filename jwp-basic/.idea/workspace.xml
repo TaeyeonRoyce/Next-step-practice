@@ -4,35 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2af2cbb1-fd68-422c-b42e-d2d3dbaec996" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cherry_pick.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/next/HelloWorldServlet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/next/WebServerLauncher.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/WEB-INF/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/fonts/glyphicons-halflings-regular.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/fonts/glyphicons-halflings-regular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/fonts/glyphicons-halflings-regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/images/80-text.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/js/jquery-2.2.0.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/js/scripts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/qna/form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/qna/show.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/user/form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/user/list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/user/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/user/login_failed.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webapp/user/profile.html" beforeDir="false" />
-    </list>
+    <list default="true" id="2af2cbb1-fd68-422c-b42e-d2d3dbaec996" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +16,7 @@
         <entry key="$PROJECT_DIR$/.." value="master" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/step0-getting-started" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -99,7 +71,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1652672799090</updated>
-      <workItem from="1652672800394" duration="3942000" />
+      <workItem from="1652672800394" duration="4625000" />
     </task>
     <servers />
   </component>
